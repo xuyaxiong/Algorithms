@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class T_1_1_24 {
+public class T1_1_24 {
     @Test
     public void testEuclid() {
         assertEquals(1, Q1_1_24.euclid(1111111, 1234567));

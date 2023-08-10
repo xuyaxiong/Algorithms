@@ -1,6 +1,6 @@
 package org.example.chapter_1.section_1;
 
-public class Q_1_1_22 {
+public class Q1_1_22 {
     public static int rank(int key, int[] a, int lo, int hi, int level) {
         String info = getIndentation(level) + "lo = " + lo + " hi = " + hi;
         System.out.println(info);
