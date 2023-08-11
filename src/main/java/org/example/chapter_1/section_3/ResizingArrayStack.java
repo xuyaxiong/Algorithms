@@ -5,11 +5,11 @@ import edu.princeton.cs.algs4.StdOut;
 
 import java.util.Iterator;
 
-public class FixedCapacityStack<Item> implements Iterable<Item> {
+public class ResizingArrayStack<Item> implements Iterable<Item> {
     private Item[] a;
     private int N;
 
-    public FixedCapacityStack(int cap) {
+    public ResizingArrayStack(int cap) {
         a = (Item[]) new Object[cap];
     }
 
@@ -65,7 +65,7 @@ public class FixedCapacityStack<Item> implements Iterable<Item> {
     }
 
     public static void main(String[] args) {
-        FixedCapacityStack<String> s = new FixedCapacityStack<>(1);
+        ResizingArrayStack<String> s = new ResizingArrayStack<>(1);
         while (!StdIn.isEmpty()) {
             String item = StdIn.readString();
             if (!item.equals("-"))
