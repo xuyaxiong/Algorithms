@@ -1,4 +1,4 @@
-package org.example.chapter_1.section_3;
+package org.example.chapter_1.section_3.impl;
 
 public interface IQueue<Item> {
     boolean isEmpty();

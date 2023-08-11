@@ -1,33 +1,18 @@
 package org.example.chapter_1.section_3;
 
-import org.example.chapter_1.section_3.impl.IStack;
-
-import java.util.Arrays;
 import java.util.Iterator;
-import java.util.List;
 
-public class Stack<Item> implements IStack<Item>, Iterable<Item> {
+public class Bag<Item> implements Iterable<Item> {
 
     private class Node {
         Item item;
         Node next;
     }
 
-    public Node first;
+    private Node first;
     private int N;
 
-    @Override
-    public boolean isEmpty() {
-        return first == null;
-    }
-
-    @Override
-    public int size() {
-        return N;
-    }
-
-    @Override
-    public void push(Item item) {
+    public void add(Item item) {
         Node oldFirst = first;
         first = new Node();
         first.item = item;
@@ -35,12 +20,12 @@ public class Stack<Item> implements IStack<Item>, Iterable<Item> {
         N++;
     }
 
-    @Override
-    public Item pop() {
-        Item item = first.item;
-        first = first.next;
-        N--;
-        return item;
+    public int size() {
+        return N;
+    }
+
+    public boolean isEmpty() {
+        return first == null;
     }
 
     @Override
@@ -49,19 +34,17 @@ public class Stack<Item> implements IStack<Item>, Iterable<Item> {
     }
 
     public static void main(String[] args) {
-        Stack<String> stack = new Stack<>();
-        List<String> strings = Arrays.asList("to", "be", "or", "not", "to", "be");
-        for (String s : strings) {
-            stack.push(s);
+        Bag<Integer> bag = new Bag<>();
+        for (int i = 10; i < 20; ++i) {
+            bag.add(i);
         }
 
-        for (String s : stack) {
-            System.out.println(s);
+        for (int i : bag) {
+            System.out.println(i);
         }
     }
 
     private class ListIterator implements Iterator<Item> {
-
         private Node current = first;
 
         @Override
@@ -77,5 +60,3 @@ public class Stack<Item> implements IStack<Item>, Iterable<Item> {
         }
     }
 }
-
-

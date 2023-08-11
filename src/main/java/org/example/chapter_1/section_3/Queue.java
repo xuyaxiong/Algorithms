@@ -1,5 +1,7 @@
 package org.example.chapter_1.section_3;
 
+import org.example.chapter_1.section_3.impl.IQueue;
+
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
