@@ -1,8 +1,5 @@
 package org.example.chapter_1.section_4;
 
-import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.StdOut;
-
 public class ThreeSum {
     public static int count(int[] a) {
         int N = a.length;
@@ -17,10 +14,5 @@ public class ThreeSum {
             }
         }
         return cnt;
-    }
-
-    public static void main(String[] args) {
-        int[] a = In.readInts(args[0]);
-        StdOut.println(count(a));
     }
 }
