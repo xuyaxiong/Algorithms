@@ -47,17 +47,28 @@ public class ThreeSumTest {
     @Test
     @Order(5)
     public void test() {
-        int MAX = 1000000;
         int N = 4000;
-
-        for (int i = 0; i < 25; ++i) {
-            N += 500;
-            int[] a = new int[N];
-            for (int j = 0; j < N; ++j) {
-                a[j] = StdRandom.uniform(-MAX, MAX);
-            }
-            System.out.println(N);
-            Util.timeit(() -> ThreeSum.count(a));
+        StringBuilder xStr = new StringBuilder();
+        StringBuilder yStr = new StringBuilder();
+        for (int i = 5; i < 8; ++i) {
+            int temp = N + i * 1000;
+            int[] a = genArr(temp);
+            xStr.append(temp);
+            xStr.append(',');
+            double time = Util.timeit(() -> ThreeSum.count(a));
+            yStr.append(time);
+            yStr.append(',');
         }
+        System.out.println(xStr);
+        System.out.println(yStr);
+    }
+
+    private int[] genArr(int N) {
+        int MAX = 1000000;
+        int[] a = new int[N];
+        for (int j = 0; j < N; ++j) {
+            a[j] = StdRandom.uniform(-MAX, MAX);
+        }
+        return a;
     }
 }
