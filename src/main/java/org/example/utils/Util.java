@@ -7,10 +7,11 @@ public class Util {
         return Util.class.getClassLoader().getResource(path).getPath();
     }
 
-    public static void timeit(Function f) {
+    public static double timeit(Function f) {
         Stopwatch stopwatch = new Stopwatch();
         f.exec();
         double time = stopwatch.elapsedTime();
         System.out.println(time + " seconds");
+        return time;
     }
 }
