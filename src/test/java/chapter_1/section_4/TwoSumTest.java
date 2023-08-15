@@ -52,6 +52,21 @@ public class TwoSumTest {
         System.out.println(yStr);
     }
 
+    @Test
+    public void doublingTest() {
+        int N = 1000;
+        double last = -1;
+        for (int i = 0; i < 20; ++i) {
+            N *= 2;
+            int[] a = genArr(N);
+            double time = Util.timeit(() -> TwoSum.countFast(a));
+            if (last > 0) {
+                System.out.println(time + "s " + time / last);
+            }
+            last = time;
+        }
+    }
+
 
     private int[] genArr(int N) {
         int MAX = 1000000;

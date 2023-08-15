@@ -11,7 +11,7 @@ public class Util {
         Stopwatch stopwatch = new Stopwatch();
         f.exec();
         double time = stopwatch.elapsedTime();
-        System.out.println(time + " seconds");
+//        System.out.println(time + " seconds");
         return time;
     }
 }
