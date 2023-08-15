@@ -15,7 +15,7 @@ public class ThreeSumTest {
     @Test
     @Order(1)
     public void test1Kints() {
-        String path = Util.getResourcePath("section4/1Kints.txt");
+        String path = Util.getResourcePath("chapter1/1Kints.txt");
         int[] a = In.readInts(path);
         Util.timeit(() -> StdOut.println(ThreeSum.count(a)));
     }
@@ -23,7 +23,7 @@ public class ThreeSumTest {
     @Test
     @Order(2)
     public void test2Kints() {
-        String path = Util.getResourcePath("section4/2Kints.txt");
+        String path = Util.getResourcePath("chapter1/2Kints.txt");
         int[] a = In.readInts(path);
         Util.timeit(() -> StdOut.println(ThreeSum.count(a)));
     }
@@ -31,7 +31,7 @@ public class ThreeSumTest {
     @Test
     @Order(3)
     public void test4Kints() {
-        String path = Util.getResourcePath("section4/4Kints.txt");
+        String path = Util.getResourcePath("chapter1/4Kints.txt");
         int[] a = In.readInts(path);
         Util.timeit(() -> StdOut.println(ThreeSum.count(a)));
     }
@@ -39,7 +39,7 @@ public class ThreeSumTest {
     @Test
     @Order(4)
     public void test8Kints() {
-        String path = Util.getResourcePath("section4/8Kints.txt");
+        String path = Util.getResourcePath("chapter1/8Kints.txt");
         int[] a = In.readInts(path);
         Util.timeit(() -> StdOut.println(ThreeSum.count(a)));
     }
