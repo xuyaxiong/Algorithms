@@ -2,7 +2,6 @@ package org.example.chapter_1.section_3;
 
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
-import org.example.chapter_1.section_3.impl.IQueue;
 
 import java.util.Iterator;
 
