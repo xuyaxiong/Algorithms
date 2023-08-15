@@ -8,20 +8,16 @@ import org.junit.jupiter.api.Test;
 public class TwoSumTest {
     @Test
     public void test() {
-        int MAX = 1000000;
-        int N = 10000;
+        int N = 100000;
 
         StringBuilder xStr = new StringBuilder();
         StringBuilder yStr = new StringBuilder();
 
-        for (int i = 0; i < 20; ++i) {
-            N += 10000;
-            int[] a = new int[N];
-            for (int j = 0; j < N; ++j) {
-                a[j] = StdRandom.uniform(-MAX, MAX);
-            }
+        for (int i = 0; i < 10; ++i) {
+            int temp = N + i * 10000;
+            int[] a = genArr(temp);
 
-            xStr.append(N);
+            xStr.append(temp);
             xStr.append(',');
 
             double time = Util.timeit(() -> TwoSum.count(a));
@@ -29,7 +25,40 @@ public class TwoSumTest {
             yStr.append(',');
         }
 
-        System.out.println(xStr.toString().trim());
-        System.out.println(yStr.toString().trim());
+        System.out.println(xStr);
+        System.out.println(yStr);
+    }
+
+    @Test
+    public void testFast() {
+        int N = 1000000;
+
+        StringBuilder xStr = new StringBuilder();
+        StringBuilder yStr = new StringBuilder();
+
+        for (int i = 0; i < 41; ++i) {
+            int temp = N + i * 100000;
+            int[] a = genArr(temp);
+
+            xStr.append(temp);
+            xStr.append(',');
+
+            double time = Util.timeit(() -> TwoSum.countFast(a));
+            yStr.append(time);
+            yStr.append(',');
+        }
+
+        System.out.println(xStr);
+        System.out.println(yStr);
+    }
+
+
+    private int[] genArr(int N) {
+        int MAX = 1000000;
+        int[] a = new int[N];
+        for (int j = 0; j < N; ++j) {
+            a[j] = StdRandom.uniform(-MAX, MAX);
+        }
+        return a;
     }
 }
