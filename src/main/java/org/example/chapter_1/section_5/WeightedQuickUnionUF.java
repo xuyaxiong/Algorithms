@@ -50,6 +50,16 @@ public class WeightedQuickUnionUF implements IUF {
         count--;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (int id : ids) {
+            sb.append(id);
+            sb.append(',');
+        }
+        return sb.toString();
+    }
+
     public static void main(String[] args) {
         int N = StdIn.readInt();
         WeightedQuickUnionUF weightedQuickUnionUF = new WeightedQuickUnionUF(N);
@@ -61,5 +71,6 @@ public class WeightedQuickUnionUF implements IUF {
 //            StdOut.println(p + " " + q);
         }
         StdOut.println(weightedQuickUnionUF.count() + " components");
+        System.out.println(weightedQuickUnionUF);
     }
 }
