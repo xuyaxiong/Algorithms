@@ -3,12 +3,12 @@ package org.example.chapter_1.section_5;
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
 
-public class UF implements IUF {
+public class QuickFindUF implements IUF {
 
     private int[] id;
     private int count;
 
-    public UF(int N) {
+    public QuickFindUF(int N) {
         count = N;
         id = new int[N];
         for (int i = 0; i < N; ++i)
@@ -44,14 +44,14 @@ public class UF implements IUF {
 
     public static void main(String[] args) {
         int N = StdIn.readInt();
-        UF uf = new UF(N);
+        QuickFindUF quickFindUF = new QuickFindUF(N);
         while (!StdIn.isEmpty()) {
             int p = StdIn.readInt();
             int q = StdIn.readInt();
-            if (uf.connected(p, q)) continue;
-            uf.union(p, q);
+            if (quickFindUF.connected(p, q)) continue;
+            quickFindUF.union(p, q);
             StdOut.println(p + " " + q);
         }
-        StdOut.println(uf.count() + " components");
+        StdOut.println(quickFindUF.count() + " components");
     }
 }
