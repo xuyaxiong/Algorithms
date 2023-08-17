@@ -10,7 +10,7 @@ public class InsertionTest {
     public void doublingTestInsertion() {
         int N = 1000;
         double last = -1;
-        for (int i = 0; i < 8; ++i) {
+        for (int i = 0; i < 10; ++i) {
             N *= 2;
             Double[] a = genArr(N);
             double time = Util.timeit(() -> Insertion.sort(a));

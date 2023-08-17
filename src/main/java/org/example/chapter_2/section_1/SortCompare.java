@@ -9,6 +9,7 @@ public class SortCompare {
         Stopwatch timer = new Stopwatch();
         if (alg.equals("Insertion")) Insertion.sort(a);
         if (alg.equals("Selection")) Selection.sort(a);
+        if (alg.equals("Shell")) Shell.sort(a);
         return timer.elapsedTime();
     }
 
@@ -25,9 +26,9 @@ public class SortCompare {
     }
 
     public static void main(String[] args) {
-        double t1 = timeRandomInput("Insertion", 10000, 100);
-        double t2 = timeRandomInput("Selection", 10000, 100);
-        StdOut.printf("Insertion is %.1f times faster than Selection.\n", t2 / t1);
+        double t1 = timeRandomInput("Shell", 10000, 100);
+        double t2 = timeRandomInput("Insertion", 10000, 100);
+        StdOut.printf("Shell is %.1f times faster than Insertion.\n", t2 / t1);
     }
 
 
