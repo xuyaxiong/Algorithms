@@ -2,16 +2,14 @@ package org.example.chapter_2.section_1;
 
 import org.example.utils.Util;
 
-public class Selection extends Sort {
+public class Insertion extends Sort {
     public static void sort(Comparable[] a) {
 //        System.out.println(Util.getRedString(Selection.toString(a)));
         int N = a.length;
-        for (int i = 0; i < N; i++) {
-            int min = i;
-            for (int j = i + 1; j < N; j++)
-                if (less(a[j], a[min])) min = j;
-            exch(a, i, min);
-//            show(a);
+        for (int i = 1; i < N; ++i) {
+            for (int j = i; j > 0 && less(a[j], a[j - 1]); --j) {
+                exch(a, j - 1, j);
+            }
 //            showProcess(Selection.toString(a), i + 1);
         }
     }
@@ -29,8 +27,8 @@ public class Selection extends Sort {
         for (int i = 0; i < s.length(); ++i) {
             a[i] = s.charAt(i);
         }
-        Selection.sort(a);
-        assert Selection.isSorted(a);
-        Selection.show(a);
+        Insertion.sort(a);
+        assert Insertion.isSorted(a);
+        Insertion.show(a);
     }
 }

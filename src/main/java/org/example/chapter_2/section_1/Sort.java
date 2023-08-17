@@ -1,13 +1,8 @@
 package org.example.chapter_2.section_1;
 
 import edu.princeton.cs.algs4.StdOut;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class Sort {
-
-    public static void sort(Comparable[] a) {
-        throw new NotImplementedException();
-    }
 
     public static boolean less(Comparable v, Comparable w) {
         return v.compareTo(w) < 0;
