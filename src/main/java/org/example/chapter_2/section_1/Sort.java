@@ -25,6 +25,14 @@ public class Sort {
         StdOut.println();
     }
 
+    public static String toString(Comparable[] a) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < a.length; ++i) {
+            sb.append(a[i]);
+        }
+        return sb.toString();
+    }
+
     public static boolean isSorted(Comparable[] a) {
         for (int i = 1; i < a.length; ++i)
             if (less(a[i], a[i - 1])) return false;
