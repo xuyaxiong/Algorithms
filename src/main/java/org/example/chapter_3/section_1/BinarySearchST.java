@@ -1,4 +1,4 @@
-package org.example.chapter_3;
+package org.example.chapter_3.section_1;
 
 import org.example.chapter_1.section_3.Queue;
 

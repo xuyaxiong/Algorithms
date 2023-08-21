@@ -1,4 +1,4 @@
-package org.example.chapter_3;
+package org.example.chapter_3.section_1;
 
 public class SequentialSearchST<Key, Value> {
     private class Node {
