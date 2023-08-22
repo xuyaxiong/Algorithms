@@ -4,14 +4,14 @@ import edu.princeton.cs.algs4.StdOut;
 import org.example.chapter_1.section_3.Queue;
 
 public class Q3_1_2<Key extends Comparable<Key>, Value> implements ST<Key, Value> {
-
+    private static final int INIT_SIZE = 8;
     private Key[] keys;
     private Value[] vals;
     private int N;
 
-    public Q3_1_2(int capacity) {
-        keys = (Key[]) new Comparable[capacity];
-        vals = (Value[]) new Object[capacity];
+    public Q3_1_2() {
+        keys = (Key[]) new Comparable[INIT_SIZE];
+        vals = (Value[]) new Object[INIT_SIZE];
     }
 
     @Override
@@ -24,8 +24,20 @@ public class Q3_1_2<Key extends Comparable<Key>, Value> implements ST<Key, Value
         return size() == 0;
     }
 
+    private void resize(int max) {
+        Key[] oldKeys = keys;
+        Value[] oldVals = vals;
+        keys = (Key[]) new Comparable[max];
+        vals = (Value[]) new Object[max];
+        for (int i = 0; i < N; ++i) {
+            keys[i] = oldKeys[i];
+            vals[i] = oldVals[i];
+        }
+    }
+
     @Override
     public void put(Key key, Value val) {
+        delete(key);
         for (int i = 0; i < N; ++i) {
             if (keys[i].compareTo(key) == 0) {
                 vals[i] = val;
@@ -33,7 +45,7 @@ public class Q3_1_2<Key extends Comparable<Key>, Value> implements ST<Key, Value
             }
         }
         if (N == keys.length)
-            resize(2 * keys.length);
+            resize(2 * N);
         keys[N] = key;
         vals[N] = val;
         N++;
@@ -58,31 +70,21 @@ public class Q3_1_2<Key extends Comparable<Key>, Value> implements ST<Key, Value
 
     @Override
     public void delete(Key key) {
-        int i = 0;
-        while (keys[i].compareTo(key) != 0) i++;
-        for (int j = i + 1; j < N; ++j) {
-            keys[j - 1] = keys[j];
-            vals[j - 1] = vals[j];
-        }
-        keys[N] = null;
-        N--;
-        if (N == keys.length / 4)
-            resize(keys.length / 2);
-    }
-
-    private void resize(int max) {
-        Key[] oldKeys = keys;
-        Value[] oldVals = vals;
-        keys = (Key[]) new Comparable[max];
-        vals = (Value[]) new Object[max];
-        for (int i = 0; i < N; ++i) {
-            keys[i] = oldKeys[i];
-            vals[i] = oldVals[i];
+        for (int i = 0; i < N; i++) {
+            if (key.equals(keys[i])) {
+                keys[i] = keys[N - 1];
+                vals[i] = vals[N - 1];
+                keys[N - 1] = null;
+                vals[N - 1] = null;
+                N--;
+                if (N > 0 && N == keys.length / 4) resize(keys.length / 2);
+                return;
+            }
         }
     }
 
     public static void main(String[] args) {
-        Q3_1_2<String, Double> q312 = new Q3_1_2<>(1);
+        Q3_1_2<String, Double> q312 = new Q3_1_2<>();
         q312.put("A+", 4.33);
         q312.put("A", 4.00);
         q312.put("A-", 3.67);
