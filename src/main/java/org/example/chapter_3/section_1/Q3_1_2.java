@@ -32,6 +32,8 @@ public class Q3_1_2<Key extends Comparable<Key>, Value> implements ST<Key, Value
                 return;
             }
         }
+        if (N == keys.length)
+            resize(2 * keys.length);
         keys[N] = key;
         vals[N] = val;
         N++;
@@ -62,11 +64,25 @@ public class Q3_1_2<Key extends Comparable<Key>, Value> implements ST<Key, Value
             keys[j - 1] = keys[j];
             vals[j - 1] = vals[j];
         }
+        keys[N] = null;
         N--;
+        if (N == keys.length / 4)
+            resize(keys.length / 2);
+    }
+
+    private void resize(int max) {
+        Key[] oldKeys = keys;
+        Value[] oldVals = vals;
+        keys = (Key[]) new Comparable[max];
+        vals = (Value[]) new Object[max];
+        for (int i = 0; i < N; ++i) {
+            keys[i] = oldKeys[i];
+            vals[i] = oldVals[i];
+        }
     }
 
     public static void main(String[] args) {
-        Q3_1_2<String, Double> q312 = new Q3_1_2<>(20);
+        Q3_1_2<String, Double> q312 = new Q3_1_2<>(1);
         q312.put("A+", 4.33);
         q312.put("A", 4.00);
         q312.put("A-", 3.67);
@@ -88,7 +104,7 @@ public class Q3_1_2<Key extends Comparable<Key>, Value> implements ST<Key, Value
         q312.delete("F");
 
         for (String key : q312.keys()) {
-            StdOut.println(key);
+            StdOut.println(key + " " + q312.get(key));
         }
     }
 }
