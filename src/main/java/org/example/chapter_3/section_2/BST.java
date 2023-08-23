@@ -1,5 +1,6 @@
 package org.example.chapter_3.section_2;
 
+import edu.princeton.cs.algs4.StdOut;
 import org.example.chapter_1.section_3.Queue;
 import org.example.chapter_3.section_1.ST;
 
@@ -21,7 +22,7 @@ public class BST<Key extends Comparable<Key>, Value> implements ST<Key, Value> {
 
     @Override
     public int size() {
-        return 0;
+        return size(root);
     }
 
     private int size(Node x) {
@@ -31,7 +32,7 @@ public class BST<Key extends Comparable<Key>, Value> implements ST<Key, Value> {
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return size() == 0;
     }
 
     @Override
@@ -171,5 +172,32 @@ public class BST<Key extends Comparable<Key>, Value> implements ST<Key, Value> {
         if (cmp < 0) return rank(key, x.left);
         else if (cmp > 0) return 1 + size(x.left) + rank(key, x.right);
         else return size(x.left);
+    }
+
+    public static void main(String[] args) {
+        BST<String, Double> bst = new BST<>();
+        bst.put("A+", 4.33);
+        bst.put("A", 4.00);
+        bst.put("A-", 3.67);
+        bst.put("B+", 3.33);
+        bst.put("B", 3.00);
+        bst.put("B-", 2.67);
+        bst.put("C+", 2.33);
+        bst.put("C", 2.00);
+        bst.put("C-", 1.67);
+        bst.put("D", 1.00);
+        bst.put("F", 0.00);
+
+        bst.delete("A+");
+        bst.delete("A-");
+        bst.delete("B+");
+        bst.delete("B-");
+        bst.delete("C+");
+        bst.delete("C-");
+        bst.delete("F");
+
+        for (String key : bst.keys()) {
+            StdOut.println(key + " " + bst.get(key));
+        }
     }
 }
