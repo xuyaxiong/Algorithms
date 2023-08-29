@@ -4,7 +4,8 @@ import edu.princeton.cs.algs4.StdOut;
 import org.example.chapter_1.section_3.Queue;
 import org.example.chapter_3.section_1.ST;
 
-public class BST<Key extends Comparable<Key>, Value> implements ST<Key, Value> {
+public class Test<Key extends Comparable<Key>, Value> implements ST<Key, Value> {
+
     private class Node {
         private Key key;
         private Value val;
@@ -27,7 +28,7 @@ public class BST<Key extends Comparable<Key>, Value> implements ST<Key, Value> {
 
     private int size(Node x) {
         if (x == null) return 0;
-        else return x.N;
+        return x.N;
     }
 
     @Override
@@ -41,7 +42,7 @@ public class BST<Key extends Comparable<Key>, Value> implements ST<Key, Value> {
     }
 
     private Node put(Node x, Key key, Value val) {
-        if (x == null) return new Node(key, val, 1);
+        if (x == null) x = new Node(key, val, 1);
         int cmp = key.compareTo(x.key);
         if (cmp < 0) x.left = put(x.left, key, val);
         else if (cmp > 0) x.right = put(x.right, key, val);
@@ -58,9 +59,9 @@ public class BST<Key extends Comparable<Key>, Value> implements ST<Key, Value> {
     private Value get(Node x, Key key) {
         if (x == null) return null;
         int cmp = key.compareTo(x.key);
-        if (cmp > 0) return get(x.right, key);
+        if (cmp == 0) return x.val;
         else if (cmp < 0) return get(x.left, key);
-        else return x.val;
+        else return get(x.right, key);
     }
 
     @Override
@@ -68,53 +69,26 @@ public class BST<Key extends Comparable<Key>, Value> implements ST<Key, Value> {
         return keys(min(), max());
     }
 
-    private Iterable<Key> keys(Key lo, Key hi) {
-        Queue<Key> queue = new Queue<>();
-        keys(root, queue, lo, hi);
-        return queue;
+    public Iterable<Key> keys(Key lo, Key hi) {
+        Queue<Key> q = new Queue<>();
+        keys(root, q, lo, hi);
+        return q;
     }
 
-    private void keys(Node x, Queue<Key> queue, Key lo, Key hi) {
+    private void keys(Node x, Queue<Key> q, Key lo, Key hi) {
         if (x == null) return;
         int cmplo = lo.compareTo(x.key);
         int cmphi = hi.compareTo(x.key);
-        if (cmplo < 0) keys(x.left, queue, lo, hi);
-        if (cmplo <= 0 && cmphi >= 0) queue.enqueue(x.key);
-        if (cmphi > 0) keys(x.right, queue, lo, hi);
+        if (cmplo < 0) keys(x.left, q, lo, hi);
+        if (cmplo <= 0 && cmphi >= 0) q.enqueue(x.key);
+        if (cmphi > 0) keys(x.right, q, lo, hi);
     }
 
-    @Override
-    public void delete(Key key) {
-        root = delete(root, key);
-    }
-
-    private Node delete(Node x, Key key) {
-        if (x == null) return null;
-        int cmp = key.compareTo(x.key);
-        if (cmp < 0) x.left = delete(x.left, key);
-        else if (cmp > 0) x.right = delete(x.right, key);
-        else {
-            if (x.right == null) return x.left;
-            if (x.left == null) return x.right;
-            Node t = x;
-            x = min(t.right);
-            // 1、2步骤顺序很重要，不能颠倒
-            x.right = deleteMin(t.right); // 1
-            x.left = t.left; // 2
-        }
-        x.N = size(x.left) + size(x.right) + 1;
-        return x;
-    }
-
-    public void deleteMin() {
-        root = deleteMin(root);
-    }
-
-    private Node deleteMin(Node x) {
-        if (x.left == null) return x.right;
-        x.left = deleteMin(x.left);
-        x.N = size(x.left) + size(x.right) + 1;
-        return x;
+    private void keys(Queue<Key> q, Node x) {
+        if (x == null) return;
+        keys(q, x.left);
+        q.enqueue(x.key);
+        keys(q, x.right);
     }
 
     public Key min() {
@@ -123,16 +97,17 @@ public class BST<Key extends Comparable<Key>, Value> implements ST<Key, Value> {
 
     private Node min(Node x) {
         if (x.left == null) return x;
-        return min(x.left);
+        else return min(x.left);
     }
 
     public Key max() {
-        return max(root).key;
+        return max(root);
     }
 
-    private Node max(Node x) {
-        if (x.right == null) return x;
-        return max(x.right);
+    private Key max(Node x) {
+        if (x == null) return null;
+        else if (x.right == null) return x.key;
+        else return max(x.right);
     }
 
     public Key floor(Key key) {
@@ -167,16 +142,16 @@ public class BST<Key extends Comparable<Key>, Value> implements ST<Key, Value> {
         else return t;
     }
 
-    public Key select(int k) {
-        return select(root, k).key;
+    public Key select(int rank) {
+        return select(root, rank);
     }
 
-    private Node select(Node x, int k) {
+    private Key select(Node x, int rank) {
         if (x == null) return null;
-        int t = size(x.left);
-        if (t > k) return select(x.left, k);
-        else if (t < k) return select(x.right, k - t - 1);
-        else return x;
+        int leftSize = size(x.left);
+        if (leftSize == rank) return x.key;
+        else if (leftSize > rank) return select(x.left, rank);
+        else return select(x.right, rank - leftSize - 1);
     }
 
     public int rank(Key key) {
@@ -186,30 +161,63 @@ public class BST<Key extends Comparable<Key>, Value> implements ST<Key, Value> {
     private int rank(Key key, Node x) {
         if (x == null) return 0;
         int cmp = key.compareTo(x.key);
-        if (cmp < 0) return rank(key, x.left);
-        else if (cmp > 0) return 1 + size(x.left) + rank(key, x.right);
-        else return size(x.left);
+        if (cmp == 0) return size(x.left);
+        else if (cmp < 0) return rank(key, x.left);
+        else return size(x.left) + 1 + rank(key, x.right);
+    }
+
+    public void deleteMin() {
+        root = deleteMin(root);
+    }
+
+    private Node deleteMin(Node x) {
+        if (x.left == null) return x.right;
+        x.left = deleteMin(x.left);
+        x.N = size(x.left) + size(x.right) + 1;
+        return x;
+    }
+
+    @Override
+    public void delete(Key key) {
+        root = delete(root, key);
+    }
+
+    private Node delete(Node x, Key key) {
+        if (x == null) return null;
+        int cmp = key.compareTo(x.key);
+        if (cmp < 0) x.left = delete(x.left, key);
+        else if (cmp > 0) x.right = delete(x.right, key);
+        else {
+            if (x.left == null) return x.right;
+            if (x.right == null) return x.left;
+            Node t = x;
+            x = min(t.right);
+            x.right = deleteMin(t.right);
+            x.left = t.left;
+        }
+        x.N = size(x.left) + size(x.right) + 1;
+        return x;
     }
 
     public static void main(String[] args) {
-        BST<Double, Integer> bst = new BST<>();
-        bst.put(5.0, 5);
-        bst.put(3.0, 3);
-        bst.put(1.0, 1);
-        bst.put(9.0, 9);
-        bst.put(7.0, 7);
-        bst.put(6.0, 6);
-        bst.put(8.0, 8);
-        bst.put(2.0, 2);
-        bst.put(0.0, 0);
-        bst.put(4.0, 4);
+        Test<Double, Integer> test = new Test<>();
+        test.put(5.0, 5);
+        test.put(3.0, 3);
+        test.put(1.0, 1);
+        test.put(9.0, 9);
+        test.put(7.0, 7);
+        test.put(6.0, 6);
+        test.put(8.0, 8);
+        test.put(2.0, 2);
+        test.put(0.0, 0);
+        test.put(4.0, 4);
 
-        bst.delete(5.0);
-        bst.delete(3.0);
-        bst.delete(7.0);
+        test.delete(5.0);
+        test.delete(3.0);
+        test.delete(7.0);
 
-        for (Double key : bst.keys()) {
-            StdOut.println(key + " " + bst.get(key));
+        for (Double key : test.keys()) {
+            StdOut.println(key + " " + test.get(key));
         }
     }
 }
