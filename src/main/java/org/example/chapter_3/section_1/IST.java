@@ -1,6 +1,6 @@
 package org.example.chapter_3.section_1;
 
-public interface ST<Key extends Comparable<Key>, Value> {
+public interface IST<Key extends Comparable<Key>, Value> {
     int size();
 
     boolean isEmpty();

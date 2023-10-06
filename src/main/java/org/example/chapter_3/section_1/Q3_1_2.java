@@ -3,7 +3,7 @@ package org.example.chapter_3.section_1;
 import edu.princeton.cs.algs4.StdOut;
 import org.example.chapter_1.section_3.Queue;
 
-public class Q3_1_2<Key extends Comparable<Key>, Value> implements ST<Key, Value> {
+public class Q3_1_2<Key extends Comparable<Key>, Value> implements IST<Key, Value> {
     private static final int INIT_SIZE = 8;
     private Key[] keys;
     private Value[] vals;

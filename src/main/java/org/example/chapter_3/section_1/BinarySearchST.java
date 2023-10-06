@@ -2,7 +2,7 @@ package org.example.chapter_3.section_1;
 
 import org.example.chapter_1.section_3.Queue;
 
-public class BinarySearchST<Key extends Comparable<Key>, Value> implements ST<Key, Value> {
+public class BinarySearchST<Key extends Comparable<Key>, Value> implements IST<Key, Value> {
     private static final int INIT_CAPACITY = 2;
     private Key[] keys;
     private Value[] vals;

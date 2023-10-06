@@ -3,7 +3,7 @@ package org.example.chapter_3.section_2;
 import edu.princeton.cs.algs4.StdOut;
 import org.example.chapter_1.section_3.Queue;
 
-public class BST<Key extends Comparable<Key>, Value> implements ST<Key, Value> {
+public class BST<Key extends Comparable<Key>, Value> implements IST<Key, Value> {
     private class Node {
         private Key key;
         private Value val;
