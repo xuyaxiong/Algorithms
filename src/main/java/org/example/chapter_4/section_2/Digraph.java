@@ -1,0 +1,54 @@
+package org.example.chapter_4.section_2;
+
+import org.example.chapter_1.section_3.Bag;
+
+public class Digraph {
+    private final int V;
+    private int E;
+    private Bag<Integer>[] adj;
+
+    public Digraph(int V) {
+        this.V = V;
+        this.E = 0;
+        adj = (Bag<Integer>[]) new Bag[V];
+        for (int i = 0; i < V; ++i)
+            adj[i] = new Bag<>();
+    }
+
+    public int V() {
+        return V;
+    }
+
+    public int E() {
+        return E;
+    }
+
+    public void addEdge(int v, int w) {
+        adj[v].add(w);
+        E++;
+    }
+
+    public Iterable<Integer> adj(int v) {
+        return adj[v];
+    }
+
+    public Digraph reverse() {
+        Digraph R = new Digraph(V);
+        for (int v = 0; v < V; ++v)
+            for (Integer w : adj(v))
+                R.addEdge(w, v);
+        return R;
+    }
+
+    public String toString() {
+        String s = V + " vertices, " + E + " edges\n";
+        for (int v = 0; v < V; v++) {
+            s += v + ": ";
+            for (int w : adj(v))
+                s += w + " ";
+            s += "\n";
+        }
+        return s;
+    }
+
+}
